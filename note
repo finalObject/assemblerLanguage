@@ -1,2 +1,20 @@
 format
-[标号:] 操作码／伪操作码 [操作数] [;注视]
+[标号:] 操作码／伪操作码 [操作数] [;注释]
+
+;(10H+20H)-15
+		ORG		0100H
+START:	MOV		A,#10H
+		ADD 	A,#20H
+		SUBB	A,#15
+		NOP	
+		END
+
+LJMP START ;跳转到START
+END ;程序结束
+DB(define byte);定义变量，前面加上ORG配合使用，确定变量位置
+
+		ORG 1000H
+DATA1:	DB 0,1,4,9,16
+		ORG 1020H
+DATA2:	DB	"An Apple!"
+		END
