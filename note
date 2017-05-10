@@ -11,10 +11,26 @@ START:	MOV		A,#10H
 
 LJMP START ;跳转到START
 END ;程序结束
-DB(define byte);定义变量，前面加上ORG配合使用，确定变量位置
 
+DB(define byte);定义变量，前面加上ORG配合使用，确定变量位置
 		ORG 1000H
 DATA1:	DB 0,1,4,9,16
 		ORG 1020H
 DATA2:	DB	"An Apple!"
 		END
+
+DW(define word);和DB类似，感觉不常用
+
+DS(define stotage);空出位置
+		ORG 200H
+		DS	08H
+		DB  41H,42H;208H储存41H，209H储存42H
+
+EQU(equate)赋值命令,相当于宏定义
+	X EQU 20
+	Y EQU 30
+	Z EQU X+Y
+
+DATA 和EQU类似，区别可以先使用后定义？What？
+BIT 用来定义位地址
+		A1	BIT 40H;
