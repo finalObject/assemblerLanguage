@@ -80,3 +80,25 @@ TABLE:	DB		0,1,4,9,16,25,36
 	DEC							;自减
 	MUL		AB					;BA<-(A)*(B)
 	DIV		AB					;A<-(A)/(B)整数,B<-余数
+	DA		A					;调整为BCD码
+	ANL		A,#data				;A<-(A)&data
+	ORL		A,#data				;A<-(A)|data
+	XRL		A,#data				;A<-(A) xor data
+	CLR		A					;A<-0
+	CPL		A					;A<-!A
+	RL		A					;左位移
+	RR		A					;右位移
+
+	LJMP						;我觉得和JC差不多
+	JMP		@A+DPTR				;PC<-(A)+(DPTR)
+	CJNE	A,#data,LOOP		;不相等则跳转，相对rel以后，大CY=0，小CY=1，相等顺序执行
+	DJNZ	Rn,rel				;Rn<-(Rn)-1,if (Rn)!=0,则跳转
+
+	LCALL 	addr16				;调用子程序
+	RET							;子程序返回
+
+	MOV		C,30H				;CY<-(30H)
+	MOV		20H,C				;(20H)<-(C)
+	CLR		C					;置0
+	SETB	C					;置1
+	/bit						;位取反
