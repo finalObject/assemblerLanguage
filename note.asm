@@ -9,30 +9,30 @@ START:	MOV		A,#10H
 		NOP	
 		END
 
-LJMP START ;跳转到START
-END ;程序结束
+	LJMP START ;跳转到START
+	END ;程序结束
 
-DB(define byte);定义变量，前面加上ORG配合使用，确定变量位置
+	DB(define byte);定义变量，前面加上ORG配合使用，确定变量位置
 		ORG 1000H
 DATA1:	DB 0,1,4,9,16
 		ORG 1020H
 DATA2:	DB	"An Apple!"
 		END
 
-DW(define word);和DB类似，感觉不常用
+	DW(define word);和DB类似，感觉不常用
 
-DS(define stotage);空出位置
+	DS(define stotage);空出位置
 		ORG 200H
 		DS	08H
 		DB  41H,42H;208H储存41H，209H储存42H
 
-EQU(equate)赋值命令,相当于宏定义
+	EQU(equate)赋值命令,相当于宏定义
 	X EQU 20
 	Y EQU 30
 	Z EQU X+Y
 
-DATA 和EQU类似，区别可以先使用后定义？What？
-BIT 用来定义位地址
+	DATA 和EQU类似，区别可以先使用后定义？What？
+	BIT 用来定义位地址
 		A1	BIT 40H;
 
 
@@ -41,7 +41,7 @@ BIT 用来定义位地址
 		MOV A,@R0 ;A<-((R0))
 		MOVC A,@A+DPTR;A<-((A)+(DPTR))
 
-JC 相当于C中的goto
+	JC 相当于C中的goto
 		JC LOOP
 
 		ORG     0000H
@@ -58,6 +58,25 @@ START:	MOV     DPTR,#TABLE
 TABLE	DB      0,1,4,9,16,25,36,49,64,81
 		END
 
+		ORG		0000H
+START:	MOV		A,#5
+		MOVC	A,@A+PC			;PC代表下一条语句位置(A)<-((A)+(PC))
+TABLE:	DB		0,1,4,9,16,25,36
+		END
 
+	INC		A						;A自加
+	XCH 	A,Rn					;(A)<->(Rn)
+	XCH 	A,@Rn					;(A)<->((Rn))
+	XCHD	A,@Ri					;(A)3-0 <-> ((Rn))3-0
+	SWAP	A						;(A)3-0 <->	(A)7-4
 
+	ADD		A,#data
+	ADD		A,Rn
+	ADD		A,@Rn
+	ADDC	A,#data				;A<-(A)+data+(CY)
 
+	SUBB						;同ADDC
+	INC
+	DEC							;自减
+	MUL		AB					;BA<-(A)*(B)
+	DIV		AB					;A<-(A)/(B)整数,B<-余数
