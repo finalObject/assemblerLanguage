@@ -1,0 +1,7 @@
+		mov r0,#31H
+		mov	r1,#00h
+		mov r4,#0
+LOOP:	mov dph,r0
+		mov dhl,r1
+	movx @dptr,r4
+	
